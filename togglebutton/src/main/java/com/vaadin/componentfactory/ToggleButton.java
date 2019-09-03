@@ -41,15 +41,14 @@ import com.vaadin.flow.shared.Registration;
 @NpmPackage(value = "@vaadin-component-factory/vcf-toggle-button", version = "0.1.2")
 @JsModule("@vaadin-component-factory/vcf-toggle-button/src/vcf-toggle-button.js")
 @SuppressWarnings("serial")
-public class VcfToggleButton
-        extends AbstractSinglePropertyField<VcfToggleButton, Boolean>
-        implements HasStyle, HasSize, Focusable<VcfToggleButton>,
-        ClickNotifier<VcfToggleButton> {
+public class ToggleButton extends
+        AbstractSinglePropertyField<ToggleButton, Boolean> implements HasStyle,
+        HasSize, Focusable<ToggleButton>, ClickNotifier<ToggleButton> {
 
     /**
      * Default constructor.
      */
-    public VcfToggleButton() {
+    public ToggleButton() {
         super("checked", false, false);
     }
 
@@ -60,7 +59,7 @@ public class VcfToggleButton
      *            the label text to set
      * @see #setLabel(String)
      */
-    public VcfToggleButton(String labelText) {
+    public ToggleButton(String labelText) {
         this();
         setLabel(labelText);
     }
@@ -72,7 +71,7 @@ public class VcfToggleButton
      *            the initial value
      * @see AbstractField#setValue(Object)
      */
-    public VcfToggleButton(boolean initialValue) {
+    public ToggleButton(boolean initialValue) {
         this();
         setValue(initialValue);
     }
@@ -87,7 +86,7 @@ public class VcfToggleButton
      * @see #setLabel(String)
      * @see AbstractField#setValue(Object)
      */
-    public VcfToggleButton(String labelText, boolean initialValue) {
+    public ToggleButton(String labelText, boolean initialValue) {
         this(labelText);
         setValue(initialValue);
     }
@@ -103,8 +102,8 @@ public class VcfToggleButton
      * @see #setLabel(String)
      * @see #addValueChangeListener(ValueChangeListener)
      */
-    public VcfToggleButton(String label,
-            ValueChangeListener<ComponentValueChangeEvent<VcfToggleButton, Boolean>> listener) {
+    public ToggleButton(String label,
+            ValueChangeListener<ComponentValueChangeEvent<ToggleButton, Boolean>> listener) {
         this(label);
         addValueChangeListener(listener);
     }
@@ -152,8 +151,8 @@ public class VcfToggleButton
     }
 
     @DomEvent("change")
-    public static class ChangeEvent extends ComponentEvent<VcfToggleButton> {
-        public ChangeEvent(VcfToggleButton source, boolean fromClient) {
+    public static class ChangeEvent extends ComponentEvent<ToggleButton> {
+        public ChangeEvent(ToggleButton source, boolean fromClient) {
             super(source, fromClient);
         }
     }

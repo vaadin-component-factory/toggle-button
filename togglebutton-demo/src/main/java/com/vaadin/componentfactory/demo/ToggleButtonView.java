@@ -17,7 +17,7 @@ package com.vaadin.componentfactory.demo;
  * #L%
  */
 
-import com.vaadin.componentfactory.VcfToggleButton;
+import com.vaadin.componentfactory.ToggleButton;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.demo.DemoView;
 import com.vaadin.flow.router.Route;
@@ -40,7 +40,7 @@ public class ToggleButtonView extends DemoView {
     private void exampleBasicToggleButton() {
         // begin-source-example
         // source-example-heading: Basic Usage
-        VcfToggleButton toggle = new VcfToggleButton();
+        ToggleButton toggle = new ToggleButton();
         toggle.setLabel("Label");
         // end-source-example
         addCard("Basic Usage", toggle);
@@ -49,7 +49,7 @@ public class ToggleButtonView extends DemoView {
     private void exampleDisabledToggleButton() {
         // begin-source-example
         // source-example-heading: Disabled Toggle Button
-        VcfToggleButton disabledToggle = new VcfToggleButton("Disabled");
+        ToggleButton disabledToggle = new ToggleButton("Disabled");
         disabledToggle.setEnabled(false);
         // end-source-example
         addCard("Disabled Toggle Button", disabledToggle);
@@ -58,7 +58,7 @@ public class ToggleButtonView extends DemoView {
     private void exampleValueChangeListener() {
         // begin-source-example
         // source-example-heading: Toggle Button with Value Change Listener
-        VcfToggleButton toggle = new VcfToggleButton("Toggle");
+        ToggleButton toggle = new ToggleButton("Toggle");
         Div message = new Div();
         toggle.addValueChangeListener(evt -> message.setText(
                 String.format("Toggle button value changed from '%s' to '%s'",
