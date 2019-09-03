@@ -13,21 +13,21 @@ This component is part of Vaadin Prime. Still, open source you need to have a va
 
 ## Basic Usage
 ```java
-VcfToggleButton toggle = new VcfToggleButton();
+ToggleButton toggle = new ToggleButton();
 toggle.setLabel("Label");
 ```
 
 ## Disabled Toggle Button
 
 ```java
-VcfToggleButton disabledToggle = new VcfToggleButton("Disabled");
+ToggleButton disabledToggle = new ToggleButton("Disabled");
 disabledToggle.setEnabled(false);
 ```
 
 ## Toggle Button with Value Change Listener
 
 ```java
-VcfToggleButton toggle = new VcfToggleButton("Toggle");
+ToggleButton toggle = new ToggleButton("Toggle");
 Div message = new Div();
 toggle.addValueChangeListener(evt -> message.setText(
         String.format("Toggle button value changed from '%s' to '%s'",
@@ -40,7 +40,7 @@ The Demo can be run by going to the project togglebutton-demo and executing the 
 
 ```mvn jetty:run```
 
-After server startup, you'll be able find the demo at[http://localhost:8080/togglebutton](http://localhost:8080/togglebutton)
+After server startup, you'll be able find the demo at [http://localhost:8080/togglebutton](http://localhost:8080/togglebutton)
 
 
 ## License & Author
