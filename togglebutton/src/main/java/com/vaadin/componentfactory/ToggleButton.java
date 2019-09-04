@@ -39,7 +39,7 @@ import com.vaadin.flow.shared.Registration;
 
 @Tag("vcf-toggle-button")
 @NpmPackage(value = "@vaadin-component-factory/vcf-toggle-button", version = "1.0.1")
-@JsModule("@vaadin-component-factory/vcf-toggle-button/src/vcf-toggle-button.js")
+@JsModule("@vaadin-component-factory/vcf-toggle-button")
 @SuppressWarnings("serial")
 public class ToggleButton extends
         AbstractSinglePropertyField<ToggleButton, Boolean> implements HasStyle,
