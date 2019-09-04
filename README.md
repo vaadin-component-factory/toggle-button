@@ -2,7 +2,7 @@
 
 [Live Demo ↗](https://incubator.app.fi/togglebutton-demo/togglebutton)
 
-[&lt;vcf-toggle-button&gt;](https://www.npmjs.com/package/@vaadin-component-factory/vcf-toggle-button) is a Web Component for displaying an toggle button.
+[&lt;vcf-toggle-button&gt;](https://vaadin.com/directory/component/vaadin-component-factoryvcf-toggle-button) is a Web Component for displaying an toggle button.
 
 # What does the component do?
 
