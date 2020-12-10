@@ -3,12 +3,12 @@
 
     <groupId>com.vaadin.componentfactory</groupId>
     <artifactId>togglebutton</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <name>ToggleButton for Flow</name>
     <description>Integration of vcf-toggle-button for Vaadin platform</description>
 
     <properties>
-        <vaadin.version>14.0.2</vaadin.version>
+        <vaadin.version>14.4.4</vaadin.version>
 
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -20,18 +20,12 @@
         <jetty.version>9.4.15.v20190215</jetty.version>
     </properties>
     
-    <inceptionYear>2019</inceptionYear>
+    <inceptionYear>2020</inceptionYear>
     <organization>
         <name>Vaadin Ltd</name>
         <url>http://vaadin.com/</url>
     </organization>
 
-    <licenses>
-        <license>
-            <name>CVALv3</name>
-            <url>https://vaadin.com/license/cval-3</url>
-        </license>
-    </licenses>
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -105,11 +99,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 
     <build>
@@ -117,11 +106,10 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>license-maven-plugin</artifactId>
-                <version>1.8</version>
+                <version>2.0.0</version>
                 <!--  Use `mvn license:update-file-header` to fix header problems -->
                 <configuration>
-                    <licenseName>cval3</licenseName>
-                    <licenseResolver>${project.baseUri}src/license</licenseResolver>
+                    <licenseName>apache_v2</licenseName>
                     <includes>
                         <include>**/main/**/*.java</include>
                     </includes>

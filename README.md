@@ -8,9 +8,6 @@
 
 Toggle button provides an on/off switch that user can toggle by tapping the switch
 
-### Vaadin Prime
-This component is part of Vaadin Prime. Still, open source you need to have a valid CVAL license in order to use it. Read more at: vaadin.com/pricing
-
 ## Basic Usage
 ```java
 ToggleButton toggle = new ToggleButton();
@@ -45,9 +42,12 @@ After server startup, you'll be able find the demo at [http://localhost:8080/tog
 
 ## License & Author
 
-This Add-on is distributed under [Commercial Vaadin Add-on License version 3](http://vaadin.com/license/cval-3) (CVALv3). For license terms, see LICENSE.txt.
+This Add-on is distributed under Apache 2.0
 
-Component Factory Avatar is written by Vaadin Ltd.
+Component Factory Toggle Button is written by Vaadin Ltd.
+
+### Sponsored development
+Major pieces of development of this add-on has been sponsored by multiple customers of Vaadin. Read more  about Expert on Demand at: [Support](https://vaadin.com/support) and  [Pricing](https://vaadin.com/pricing)
 
 
 ## Setting up for development:
