@@ -6,11 +6,11 @@
     <groupId>com.vaadin.componentfactory</groupId>
     <artifactId>togglebutton-demo</artifactId>
     <packaging>war</packaging>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 
     <name>Component Factory Toggle Button add-on Demo</name>
 
-    <inceptionYear>2019</inceptionYear>
+    <inceptionYear>2020</inceptionYear>
     <organization>
         <name>Vaadin Ltd</name>
         <url>http://vaadin.com/</url>
@@ -18,7 +18,7 @@
 
     <properties>
         <failOnMissingWebXml>false</failOnMissingWebXml>
-        <vaadin.version>14.0.2</vaadin.version>
+        <vaadin.version>14.4.4</vaadin.version>
         <flow.version>2.0.1</flow.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -46,7 +46,7 @@
         <dependency>
             <groupId>com.vaadin.componentfactory</groupId>
             <artifactId>togglebutton</artifactId>
-            <version>1.0.0</version>
+            <version>1.0.1</version>
         </dependency>
         <dependency>
             <groupId>com.vaadin</groupId>
