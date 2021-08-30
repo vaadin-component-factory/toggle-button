@@ -18,7 +18,7 @@
 
     <properties>
         <failOnMissingWebXml>false</failOnMissingWebXml>
-        <vaadin.version>14.4.4</vaadin.version>
+        <vaadin.version>14.6.8</vaadin.version>
         <flow.version>2.0.1</flow.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
