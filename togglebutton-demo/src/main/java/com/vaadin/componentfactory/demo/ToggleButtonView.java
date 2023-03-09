@@ -53,8 +53,11 @@ public class ToggleButtonView extends DemoView {
         // source-example-heading: Disabled Toggle Button
         ToggleButton disabledToggle = new ToggleButton("Disabled");
         disabledToggle.setEnabled(false);
+        ToggleButton disabledToggleChecked = new ToggleButton("Disabled and checked");
+        disabledToggleChecked.setEnabled(false);
+        disabledToggleChecked.setValue(true);
         // end-source-example
-        addCard("Disabled Toggle Button", disabledToggle);
+        addCard("Disabled Toggle Button", disabledToggle, disabledToggleChecked);
     }
 
     private void exampleValueChangeListener() {

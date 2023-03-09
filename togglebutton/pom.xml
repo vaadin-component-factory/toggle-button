@@ -3,15 +3,15 @@
 
     <groupId>com.vaadin.componentfactory</groupId>
     <artifactId>togglebutton</artifactId>
-    <version>2.0.0</version>
+    <version>3.0.0-SNAPSHOT</version>
     <name>ToggleButton for Flow</name>
     <description>Integration of vcf-toggle-button for Vaadin platform</description>
 
     <properties>
-        <vaadin.version>23.0.10</vaadin.version>
+        <vaadin.version>24.0.0</vaadin.version>
 
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
