@@ -20,6 +20,8 @@ package com.vaadin.componentfactory.demo;
  * #L%
  */
 import com.vaadin.componentfactory.ToggleButton;
+import com.vaadin.flow.component.checkbox.CheckboxGroup;
+import com.vaadin.flow.component.checkbox.CheckboxGroupVariant;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.demo.DemoView;
 import com.vaadin.flow.router.Route;
@@ -37,6 +39,7 @@ public class ToggleButtonView extends DemoView {
         exampleBasicToggleButton();
         exampleDisabledToggleButton();
         exampleValueChangeListener();
+        exampleCheckboxGroup();
     }
 
     private void exampleBasicToggleButton() {
@@ -53,8 +56,11 @@ public class ToggleButtonView extends DemoView {
         // source-example-heading: Disabled Toggle Button
         ToggleButton disabledToggle = new ToggleButton("Disabled");
         disabledToggle.setEnabled(false);
+        ToggleButton disabledToggleChecked = new ToggleButton("Disabled and checked");
+        disabledToggleChecked.setEnabled(false);
+        disabledToggleChecked.setValue(true);
         // end-source-example
-        addCard("Disabled Toggle Button", disabledToggle);
+        addCard("Disabled Toggle Button", disabledToggle, disabledToggleChecked);
     }
 
     private void exampleValueChangeListener() {
@@ -69,4 +75,18 @@ public class ToggleButtonView extends DemoView {
         addCard("Toggle Button with Value Change Listener", toggle, message);
     }
 
+
+    private void exampleCheckboxGroup() {
+        // begin-source-example
+        // source-example-heading: CheckboxGroup made up of Toggle Buttons
+        CheckboxGroup<String> checkboxGroup = new CheckboxGroup<>();
+        checkboxGroup.setLabel("Export data");
+        checkboxGroup.setItems("Order ID", "Product name", "Customer",
+                "Status");
+        checkboxGroup.select("Order ID", "Customer");
+        checkboxGroup.addThemeVariants(CheckboxGroupVariant.LUMO_VERTICAL);
+        checkboxGroup.addThemeName(ToggleButton.THEME_NAME);
+        // end-source-example
+        addCard("CheckboxGroup made up of Toggle Buttons", checkboxGroup);
+    }
 }
