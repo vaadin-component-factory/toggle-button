@@ -1,3 +1,8 @@
+vaadin-checkbox[theme~="toggle-button"]::part(checkbox),
+vaadin-checkbox[theme~="toggle-button"] > input {
+    grid-column: 2;
+}
+
 vaadin-checkbox-group[theme~="toggle-button"] > vaadin-checkbox::part(checkbox),
 vaadin-checkbox[theme~="toggle-button"]::part(checkbox) {
     width: calc(1.5em * 2 - 12px);
