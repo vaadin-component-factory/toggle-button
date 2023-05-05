@@ -41,7 +41,7 @@ import com.vaadin.flow.shared.Registration;
  */
 
 @Tag("vcf-toggle-button")
-@NpmPackage(value = "@vaadin-component-factory/vcf-toggle-button", version = "1.0.3")
+@NpmPackage(value = "@vaadin-component-factory/vcf-toggle-button", version = "1.0.4")
 @JsModule("@vaadin-component-factory/vcf-toggle-button")
 @SuppressWarnings("serial")
 public class ToggleButton extends
