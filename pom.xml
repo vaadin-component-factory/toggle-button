@@ -6,7 +6,7 @@
 	<groupId>com.vaadin.componentfactory</groupId>
 	<artifactId>togglebutton-root</artifactId>
 	<packaging>pom</packaging>
-	<version>1.0.1</version>
+	<version>1.0.2</version>
 
 	<name>Component Factory Toggle Button add-on Root</name>
 
