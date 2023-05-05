@@ -3,7 +3,7 @@
 
     <groupId>com.vaadin.componentfactory</groupId>
     <artifactId>togglebutton</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <name>ToggleButton for Flow</name>
     <description>Integration of vcf-toggle-button for Vaadin platform</description>
 
