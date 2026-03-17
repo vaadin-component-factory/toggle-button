@@ -1,29 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>4.0.0</version>
+        <relativePath/>
+    </parent>
 
     <groupId>com.vaadin.componentfactory</groupId>
     <artifactId>togglebutton-demo</artifactId>
-    <packaging>war</packaging>
-    <version>2.1.0</version>
-
-    <name>Component Factory Toggle Button add-on Demo</name>
-
-    <inceptionYear>2020</inceptionYear>
-    <organization>
-        <name>Vaadin Ltd</name>
-        <url>http://vaadin.com/</url>
-    </organization>
+    <version>4.0.0</version>
+    <name>ToggleButton Demo</name>
 
     <properties>
-        <failOnMissingWebXml>false</failOnMissingWebXml>
-        <vaadin.version>23.3.6</vaadin.version>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <jetty.version>9.4.36.v20210114</jetty.version>
+        <vaadin.version>25.0.7</vaadin.version>
+        <java.version>21</java.version>
     </properties>
 
     <dependencyManagement>
@@ -31,56 +26,53 @@
             <dependency>
                 <groupId>com.vaadin</groupId>
                 <artifactId>vaadin-bom</artifactId>
+                <version>${vaadin.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
-                <version>${vaadin.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
 
+    <repositories>
+        <repository>
+            <id>Vaadin prereleases</id>
+            <url>https://maven.vaadin.com/vaadin-prereleases</url>
+        </repository>
+        <repository>
+            <id>Vaadin addons</id>
+            <url>https://maven.vaadin.com/vaadin-addons</url>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>Vaadin prereleases</id>
+            <url>https://maven.vaadin.com/vaadin-prereleases</url>
+        </pluginRepository>
+    </pluginRepositories>
+
     <dependencies>
         <dependency>
             <groupId>com.vaadin</groupId>
-            <artifactId>vaadin-core</artifactId>
+            <artifactId>vaadin-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-dev</artifactId>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>com.vaadin.componentfactory</groupId>
             <artifactId>togglebutton</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <dependency>
-            <groupId>com.vaadin</groupId>
-            <artifactId>flow-component-demo-helpers</artifactId>
-            <version>9.0.13</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>1.7.25</version>
-        </dependency>
     </dependencies>
 
     <build>
-        <resources>
-            <resource>
-                <directory>src/main/java</directory>
-                <filtering>false</filtering>
-            </resource>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>false</filtering>
-            </resource>
-        </resources>
-
         <plugins>
-            <!-- Jetty plugin for easy testing without a server -->
             <plugin>
-                <groupId>org.eclipse.jetty</groupId>
-                <artifactId>jetty-maven-plugin</artifactId>
-                <version>${jetty.version}</version>
-                <configuration>
-                    <scanIntervalSeconds>1</scanIntervalSeconds>
-                </configuration>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
             <plugin>
                 <groupId>com.vaadin</groupId>
@@ -90,51 +82,11 @@
                     <execution>
                         <goals>
                             <goal>prepare-frontend</goal>
+                            <goal>build-frontend</goal>
                         </goals>
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.sonatype.plugins</groupId>
-                <artifactId>nexus-staging-maven-plugin</artifactId>
-                <version>1.6.8</version>
-                <configuration>
-                    <skipNexusStagingDeployMojo>true</skipNexusStagingDeployMojo>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
-    <profiles>
-        <profile>
-            <id>production</id>
-			<properties>
-            		<vaadin.productionMode>true</vaadin.productionMode>
-        		</properties>
-            <dependencies>
-                <dependency>
-                    <groupId>com.vaadin</groupId>
-                    <artifactId>flow-server-production-mode</artifactId>
-                </dependency>
-            </dependencies>
-
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>com.vaadin</groupId>
-                        <artifactId>vaadin-maven-plugin</artifactId>
-                        <version>${vaadin.version}</version>
-                        <executions>
-                            <execution>
-                                <goals>
-									<goal>prepare-frontend</goal>
-                                		<goal>build-frontend</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
-
 </project>
