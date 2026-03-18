@@ -127,6 +127,16 @@ public class ToggleButtonDemoView extends VerticalLayout {
         disabled.setEnabled(false);
         panel.add(disabled);
 
+        // Spacer
+        Div spacer3 = new Div();
+        spacer3.getStyle().set("height", "8px");
+        panel.add(spacer3);
+
+        // Disabled + checked toggle
+        ToggleButton disabledOn = new ToggleButton("Disabled on", true);
+        disabledOn.setEnabled(false);
+        panel.add(disabledOn);
+
         return panel;
     }
 }
