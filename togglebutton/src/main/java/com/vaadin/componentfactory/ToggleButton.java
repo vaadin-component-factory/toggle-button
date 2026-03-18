@@ -32,7 +32,7 @@ import com.vaadin.flow.component.dependency.CssImport;
  *
  * @author Vaadin Ltd
  */
-@CssImport(value = "./styles/vaadin-checkbox.css", themeFor = "vaadin-checkbox")
+@CssImport("./styles/vaadin-checkbox.css")
 @SuppressWarnings("serial")
 public class ToggleButton extends Checkbox implements HasTheme {
 

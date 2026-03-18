@@ -1,10 +1,10 @@
 /*
- * Toggle Button styles for vaadin-checkbox (injected into shadow DOM).
+ * Toggle Button styles for vaadin-checkbox (document-scope CSS with ::part selectors).
  * Supports Lumo, Aura, and no-theme (plain fallbacks).
  */
 
 /* Toggle track */
-:host([theme~="toggle-button"]) [part="checkbox"] {
+vaadin-checkbox[theme~="toggle-button"]::part(checkbox) {
     position: relative;
     width: 40px;
     height: 22px;
@@ -22,7 +22,7 @@
 }
 
 /* Toggle knob */
-:host([theme~="toggle-button"]) [part="checkbox"]::after {
+vaadin-checkbox[theme~="toggle-button"]::part(checkbox)::after {
     position: absolute !important;
     content: "" !important;
     /* Reset inset first, then set individual positions */
@@ -47,28 +47,28 @@
 }
 
 /* Checked knob position */
-:host([checked][theme~="toggle-button"]) [part="checkbox"]::after {
+vaadin-checkbox[checked][theme~="toggle-button"]::part(checkbox)::after {
     left: 21px !important;
 }
 
 /* Checked track color */
-:host([checked][theme~="toggle-button"]) [part="checkbox"] {
+vaadin-checkbox[checked][theme~="toggle-button"]::part(checkbox) {
     background-color: var(--lumo-primary-color, var(--aura-primary-color, #1676f3));
 }
 
 /* Disabled track */
-:host([disabled][theme~="toggle-button"]) [part="checkbox"] {
+vaadin-checkbox[disabled][theme~="toggle-button"]::part(checkbox) {
     opacity: 0.5;
     cursor: default;
 }
 
 /* Disabled knob */
-:host([disabled][theme~="toggle-button"]) [part="checkbox"]::after {
+vaadin-checkbox[disabled][theme~="toggle-button"]::part(checkbox)::after {
     color: transparent !important;
 }
 
 /* Checked + disabled track */
-:host([checked][disabled][theme~="toggle-button"]) [part="checkbox"] {
+vaadin-checkbox[checked][disabled][theme~="toggle-button"]::part(checkbox) {
     background-color: var(--lumo-primary-color, var(--aura-primary-color, #1676f3));
     opacity: 0.4;
 }
