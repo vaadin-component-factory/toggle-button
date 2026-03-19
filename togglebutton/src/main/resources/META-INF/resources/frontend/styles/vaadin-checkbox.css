@@ -1,6 +1,9 @@
 /*
  * Toggle Button styles for vaadin-checkbox (document-scope CSS with ::part selectors).
- * Supports Lumo, Aura, and no-theme (plain fallbacks).
+ * Supports Lumo, Aura, and unstyled (base) modes via CSS custom property fallbacks.
+ * When Lumo is loaded, --lumo-* properties are defined and resolve first.
+ * When Aura is loaded (without Lumo), --aura-* properties resolve.
+ * When neither is loaded, hardcoded fallback values are used.
  */
 
 /* Toggle track */
@@ -16,7 +19,6 @@ vaadin-checkbox[theme~="toggle-button"]::part(checkbox) {
     margin: 0;
     cursor: pointer;
     overflow: hidden;
-    /* Reset any theme checkbox styling */
     display: block;
     box-sizing: border-box;
 }
@@ -25,7 +27,6 @@ vaadin-checkbox[theme~="toggle-button"]::part(checkbox) {
 vaadin-checkbox[theme~="toggle-button"]::part(checkbox)::after {
     position: absolute !important;
     content: "" !important;
-    /* Reset inset first, then set individual positions */
     inset: auto !important;
     top: 3px !important;
     left: 3px !important;
@@ -36,7 +37,6 @@ vaadin-checkbox[theme~="toggle-button"]::part(checkbox)::after {
     border: none !important;
     opacity: 1 !important;
     transition: left 0.2s ease !important;
-    /* Hide the checkmark (rendered via CSS mask in base theme) */
     mask: none !important;
     -webkit-mask: none !important;
     filter: none !important;

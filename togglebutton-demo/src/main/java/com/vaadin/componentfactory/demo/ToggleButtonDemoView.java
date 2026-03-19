@@ -1,37 +1,41 @@
 package com.vaadin.componentfactory.demo;
 
 import com.vaadin.componentfactory.ToggleButton;
+import com.vaadin.flow.component.AttachEvent;
+import com.vaadin.flow.component.ComponentUtil;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.html.H4;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.select.Select;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.shared.Registration;
 
 @Route("togglebutton")
 public class ToggleButtonDemoView extends VerticalLayout {
 
+    private static final String LUMO = "Lumo";
+    private static final String AURA = "Aura";
+    private static final String UNSTYLED = "Unstyled";
+
     public ToggleButtonDemoView() {
         add(new H3("Toggle Button Demo"));
-        add(new Span("Showing the toggle button under all six theme combinations."));
+        add(new Span(
+                "Use the theme selector to switch between Lumo, Aura, and Unstyled (base) themes."));
 
-        // 3 columns x 2 rows grid
+        add(createThemeChanger());
+
         Div grid = new Div();
         grid.getStyle()
                 .set("display", "grid")
-                .set("grid-template-columns", "1fr 1fr 1fr")
+                .set("grid-template-columns", "1fr 1fr")
                 .set("gap", "16px")
-                .set("max-width", "900px");
+                .set("max-width", "600px");
 
-        // Row 1: Light mode
-        grid.add(createPanel("Lumo Light", false, Theme.LUMO));
-        grid.add(createPanel("Aura Light", false, Theme.AURA));
-        grid.add(createPanel("Unstyled Light", false, Theme.NONE));
-
-        // Row 2: Dark mode
-        grid.add(createPanel("Lumo Dark", true, Theme.LUMO));
-        grid.add(createPanel("Aura Dark", true, Theme.AURA));
-        grid.add(createPanel("Unstyled Dark", true, Theme.NONE));
+        grid.add(createPanel("Light", false));
+        grid.add(createPanel("Dark", true));
 
         add(grid);
 
@@ -39,12 +43,62 @@ public class ToggleButtonDemoView extends VerticalLayout {
         setSpacing(true);
     }
 
-    private enum Theme { LUMO, AURA, NONE }
+    /**
+     * Theme switcher using dynamic stylesheet loading with {@link Registration}
+     * to apply and un-apply Lumo / Aura stylesheets at runtime.
+     */
+    private Select<String> createThemeChanger() {
+        Select<String> select = new Select<>();
+        select.setLabel("Theme");
+        select.setItems(UNSTYLED, LUMO, AURA);
+        select.setValue(UNSTYLED);
 
-    private Div createPanel(String title, boolean dark, Theme theme) {
+        select.addValueChangeListener(event -> switchTheme(
+                event.getSource().getUI().orElse(UI.getCurrent()),
+                event.getValue()));
+
+        return select;
+    }
+
+    @Override
+    protected void onAttach(AttachEvent attachEvent) {
+        super.onAttach(attachEvent);
+        UI ui = attachEvent.getUI();
+        // Ensure we start in unstyled mode (no theme stylesheet loaded)
+        Registration registration = ComponentUtil.getData(ui,
+                Registration.class);
+        if (registration == null) {
+            switchTheme(ui, UNSTYLED);
+        }
+    }
+
+    private void switchTheme(UI ui, String theme) {
+        // Remove previous theme stylesheet
+        Registration registration = ComponentUtil.getData(ui,
+                Registration.class);
+        if (registration != null) {
+            registration.remove();
+        }
+
+        // Add the new theme stylesheet
+        String styleSheet = switch (theme) {
+            case LUMO -> "lumo/lumo.css";
+            case AURA -> "aura/aura.css";
+            default -> null;
+        };
+
+        if (styleSheet != null) {
+            registration = ui.getPage().addStyleSheet(styleSheet);
+        } else {
+            registration = null;
+        }
+
+        ComponentUtil.setData(ui, Registration.class, registration);
+    }
+
+    private Div createPanel(String title, boolean dark) {
         Div panel = new Div();
 
-        // Base panel styling
         String bg = dark ? "#1a1a1a" : "#ffffff";
         String textColor = dark ? "#e0e0e0" : "#1a1a1a";
         String borderColor = dark ? "#444" : "#e0e0e0";
@@ -56,47 +110,18 @@ public class ToggleButtonDemoView extends VerticalLayout {
                 .set("background-color", bg)
                 .set("color", textColor);
 
-        // Set label color so toggle labels are readable
-        String labelColor = dark ? "#e0e0e0" : "#1a1a1a";
+        // Label colors for readability on light/dark backgrounds
         panel.getStyle()
-                .set("--vaadin-checkbox-label-color", labelColor)
-                .set("--vaadin-input-field-label-color", labelColor);
+                .set("--vaadin-checkbox-label-color", textColor)
+                .set("--vaadin-input-field-label-color", textColor);
 
-        // Set theme-specific CSS custom properties
-        switch (theme) {
-            case LUMO:
-                if (dark) {
-                    panel.getStyle()
-                            .set("--lumo-contrast-40pct", "hsla(214, 96%, 96%, 0.38)")
-                            .set("--lumo-primary-color", "hsl(214, 86%, 55%)")
-                            .set("--lumo-primary-contrast-color", "#fff")
-                            .set("--lumo-disabled-text-color", "hsla(214, 96%, 96%, 0.3)");
-                } else {
-                    panel.getStyle()
-                            .set("--lumo-contrast-40pct", "hsla(214, 53%, 23%, 0.38)")
-                            .set("--lumo-primary-color", "hsl(214, 90%, 52%)")
-                            .set("--lumo-primary-contrast-color", "#fff");
-                }
-                break;
-            case AURA:
-                if (dark) {
-                    panel.getStyle()
-                            .set("--aura-contrast-40pct", "rgba(255, 255, 255, 0.38)")
-                            .set("--aura-primary-color", "#a8c7fa")
-                            .set("--aura-primary-contrast-color", "#062e6f");
-                } else {
-                    panel.getStyle()
-                            .set("--aura-contrast-40pct", "rgba(26, 26, 26, 0.38)")
-                            .set("--aura-primary-color", "#0957d0")
-                            .set("--aura-primary-contrast-color", "#fff");
-                }
-                break;
-            case NONE:
-                // No CSS custom properties — uses plain fallbacks
-                break;
+        if (dark) {
+            // Override theme disabled text colors for dark backgrounds
+            panel.getStyle()
+                    .set("--lumo-disabled-text-color", "rgba(224, 224, 224, 0.4)")
+                    .set("--vaadin-input-field-label-color", "#e0e0e0");
         }
 
-        // Title
         H4 heading = new H4(title);
         heading.getStyle()
                 .set("margin", "0 0 12px 0")
@@ -104,39 +129,26 @@ public class ToggleButtonDemoView extends VerticalLayout {
                 .set("color", textColor);
         panel.add(heading);
 
-        // Unchecked toggle
-        ToggleButton off = new ToggleButton("Off state");
-        panel.add(off);
+        panel.add(new ToggleButton("Off state"));
+        panel.add(spacer());
+        panel.add(new ToggleButton("On state", true));
+        panel.add(spacer());
 
-        // Spacer
-        Div spacer = new Div();
-        spacer.getStyle().set("height", "8px");
-        panel.add(spacer);
-
-        // Checked toggle
-        ToggleButton on = new ToggleButton("On state", true);
-        panel.add(on);
-
-        // Spacer
-        Div spacer2 = new Div();
-        spacer2.getStyle().set("height", "8px");
-        panel.add(spacer2);
-
-        // Disabled toggle
         ToggleButton disabled = new ToggleButton("Disabled");
         disabled.setEnabled(false);
         panel.add(disabled);
+        panel.add(spacer());
 
-        // Spacer
-        Div spacer3 = new Div();
-        spacer3.getStyle().set("height", "8px");
-        panel.add(spacer3);
-
-        // Disabled + checked toggle
         ToggleButton disabledOn = new ToggleButton("Disabled on", true);
         disabledOn.setEnabled(false);
         panel.add(disabledOn);
 
         return panel;
+    }
+
+    private Div spacer() {
+        Div spacer = new Div();
+        spacer.getStyle().set("height", "8px");
+        return spacer;
     }
 }
