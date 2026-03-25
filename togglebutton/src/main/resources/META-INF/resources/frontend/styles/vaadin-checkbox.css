@@ -72,3 +72,39 @@ vaadin-checkbox[checked][disabled][theme~="toggle-button"]::part(checkbox) {
     background-color: var(--lumo-primary-color, var(--aura-primary-color, #1676f3));
     opacity: 0.4;
 }
+
+/* WEST: label on left, toggle on right */
+vaadin-checkbox[theme~="toggle-button"][theme~="label-west"]::part(checkbox) {
+    grid-column: 2;
+}
+vaadin-checkbox[theme~="toggle-button"][theme~="label-west"]::part(label) {
+    grid-column: 1;
+}
+
+/* NORTH: label on top, toggle on bottom */
+vaadin-checkbox[theme~="toggle-button"][theme~="label-north"] {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+}
+vaadin-checkbox[theme~="toggle-button"][theme~="label-north"]::part(checkbox) {
+    order: 2;
+}
+vaadin-checkbox[theme~="toggle-button"][theme~="label-north"]::part(label) {
+    order: 1;
+}
+
+/* SOUTH: toggle on top, label on bottom */
+vaadin-checkbox[theme~="toggle-button"][theme~="label-south"] {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+}
+vaadin-checkbox[theme~="toggle-button"][theme~="label-south"]::part(checkbox) {
+    order: 1;
+}
+vaadin-checkbox[theme~="toggle-button"][theme~="label-south"]::part(label) {
+    order: 2;
+}

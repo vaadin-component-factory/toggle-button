@@ -143,6 +143,30 @@ public class ToggleButtonDemoView extends VerticalLayout {
         disabledOn.setEnabled(false);
         panel.add(disabledOn);
 
+        for (ToggleButton.LabelPosition pos : new ToggleButton.LabelPosition[]{
+                ToggleButton.LabelPosition.WEST,
+                ToggleButton.LabelPosition.NORTH,
+                ToggleButton.LabelPosition.SOUTH}) {
+
+            panel.add(spacer());
+
+            H4 posHeading = new H4("Label " + pos.name().charAt(0) + pos.name().substring(1).toLowerCase());
+            posHeading.getStyle()
+                    .set("margin", "12px 0 12px 0")
+                    .set("font-size", "14px")
+                    .set("color", textColor);
+            panel.add(posHeading);
+
+            ToggleButton off = new ToggleButton("Off state");
+            off.setLabelPosition(pos);
+            panel.add(off);
+            panel.add(spacer());
+
+            ToggleButton on = new ToggleButton("On state", true);
+            on.setLabelPosition(pos);
+            panel.add(on);
+        }
+
         return panel;
     }
 
