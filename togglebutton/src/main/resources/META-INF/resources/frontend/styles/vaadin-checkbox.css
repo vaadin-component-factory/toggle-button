@@ -6,6 +6,11 @@
  * When neither is loaded, hardcoded fallback values are used.
  */
 
+/* Vertically centre the label text with the toggle track */
+vaadin-checkbox[theme~="toggle-button"] {
+    align-items: center;
+}
+
 /* Toggle track */
 vaadin-checkbox[theme~="toggle-button"]::part(checkbox) {
     position: relative;
