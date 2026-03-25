@@ -26,8 +26,8 @@ vaadin-checkbox[theme~="toggle-button"]::part(checkbox) {
     overflow: hidden;
     display: block;
     box-sizing: border-box;
-    /* Nudge up 1px to align with the optical (cap-height) centre of the label text */
-    translate: 0 -1px;
+    /* Nudge up 2px to align with the optical (cap-height) centre of the label text */
+    translate: 0 -2px;
 }
 
 /* Toggle knob */
