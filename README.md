@@ -1,63 +1,55 @@
-# Component Factory Toggle Button for Vaadin 14
+# ToggleButton for Flow
 
-[Live Demo ↗](https://incubator.app.fi/togglebutton-demo/togglebutton)
+Toggle button provides an on/off switch that users can toggle by tapping the switch.
 
-[&lt;vcf-toggle-button&gt;](https://vaadin.com/directory/component/vaadin-component-factoryvcf-toggle-button) is a Web Component for displaying an toggle button.
+Version 4.0.0 is compatible with **Vaadin 25.0.7** (Java 21, Spring Boot 4).
 
-# What does the component do?
+| Version | Vaadin |
+|---------|--------|
+| 1.x     | 14     |
+| 2.0.0   | 23     |
+| 3.0.0   | 23/24  |
+| 4.0.0   | 25.0   |
 
-Toggle button provides an on/off switch that user can toggle by tapping the switch
-
-## Basic Usage
-```java
-ToggleButton toggle = new ToggleButton();
-toggle.setLabel("Label");
-```
-
-## Disabled Toggle Button
+## Usage
 
 ```java
-ToggleButton disabledToggle = new ToggleButton("Disabled");
-disabledToggle.setEnabled(false);
+ToggleButton toggle = new ToggleButton("Enable notifications");
+toggle.addValueChangeListener(e -> {
+    Notification.show("Notifications " + (e.getValue() ? "enabled" : "disabled"));
+});
 ```
 
-## Toggle Button with Value Change Listener
+The component extends Vaadin's `Checkbox` with a `toggle-button` theme variant and custom CSS that renders it as a toggle switch. It supports both the **Lumo** and **Aura** themes.
 
-```java
-ToggleButton toggle = new ToggleButton("Toggle");
-Div message = new Div();
-toggle.addValueChangeListener(evt -> message.setText(
-        String.format("Toggle button value changed from '%s' to '%s'",
-                evt.getOldValue(), evt.getValue())));
+## Maven
+
+```xml
+<dependency>
+    <groupId>com.vaadin.componentfactory</groupId>
+    <artifactId>togglebutton</artifactId>
+    <version>4.0.0</version>
+</dependency>
 ```
 
-# How to run the demo?
+## Running the Demo
 
-The Demo can be run by going to the project togglebutton-demo and executing the maven goal:
-
-```mvn jetty:run```
-
-After server startup, you'll be able find the demo at [http://localhost:8080/togglebutton](http://localhost:8080/togglebutton)
-
-
-## License & Author
-
-This Add-on is distributed under Apache 2.0
-
-Component Factory Toggle Button is written by Vaadin Ltd.
-
-### Sponsored development
-Major pieces of development of this add-on has been sponsored by multiple customers of Vaadin. Read more  about Expert on Demand at: [Support](https://vaadin.com/support) and  [Pricing](https://vaadin.com/pricing)
-
-
-## Setting up for development:
-
-Clone the project in GitHub (or fork it if you plan on contributing)
-
+```bash
+cd togglebutton-demo
+mvn spring-boot:run
 ```
+
+Then open http://localhost:8080/togglebutton
+
+## Development
+
+Clone and install to local Maven repository:
+
+```bash
 git clone git@github.com:vaadin-component-factory/toggle-button.git
+mvn install
 ```
 
-to install project to your maven repository run
- 
-```mvn install```
+## License
+
+Apache License 2.0
