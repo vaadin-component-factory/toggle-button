@@ -62,6 +62,11 @@
             <artifactId>vaadin-core</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-dev</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
             <groupId>com.vaadin.componentfactory</groupId>
             <artifactId>togglebutton</artifactId>
             <version>${project.version}</version>
@@ -93,6 +98,10 @@
                 <groupId>com.vaadin</groupId>
                 <artifactId>vaadin-maven-plugin</artifactId>
                 <version>${vaadin.version}</version>
+                <configuration>
+                    <pnpmEnable>true</pnpmEnable>
+                    <requireHomeNodeExec>true</requireHomeNodeExec>
+                </configuration>
                 <executions>
                     <execution>
                         <goals>
