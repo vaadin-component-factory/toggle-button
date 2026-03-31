@@ -154,10 +154,14 @@ vaadin-checkbox[theme~="toggle-button"][theme~="label-start"]::part(checkbox) {
 vaadin-checkbox[theme~="toggle-button"][theme~="label-start"]::part(label) {
     grid-column: 1;
 }
-/* Move helper-text and error-message under the label (column 1), not the track */
+/* Span helper-text and error-message across both columns so they run the full
+ * component width (label + toggle).  contain:inline-size prevents their text
+ * from inflating column 1 beyond the label's width, keeping the toggle
+ * directly adjacent to the label. */
 vaadin-checkbox[theme~="toggle-button"][theme~="label-start"]::part(helper-text),
 vaadin-checkbox[theme~="toggle-button"][theme~="label-start"]::part(error-message) {
-    grid-column: 1;
+    grid-column: 1 / -1;
+    contain: inline-size;
 }
 
 /* TOP: label on top, toggle on bottom.
