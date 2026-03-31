@@ -127,8 +127,15 @@ public class ToggleButtonDemoView extends VerticalLayout {
                 .set("color", textColor);
         panel.add(heading);
 
-        // ── Basic states ───────────────────────────────────────────────
+        // ── Label End (default) ────────────────────────────────────────
         String suffix = dark ? "dark" : "light";
+
+        H4 endHeading = new H4("Label End");
+        endHeading.getStyle()
+                .set("margin", "0 0 12px 0")
+                .set("font-size", "14px")
+                .set("color", textColor);
+        panel.add(endHeading);
 
         ToggleButton off = new ToggleButton("Off state");
         off.setId("toggle-end-off-" + suffix);
@@ -150,6 +157,20 @@ public class ToggleButtonDemoView extends VerticalLayout {
         disabledOn.setEnabled(false);
         disabledOn.setId("toggle-end-disabled-on-" + suffix);
         panel.add(disabledOn);
+        panel.add(spacer());
+
+        ToggleButton endHelper = new ToggleButton("With helper");
+        endHelper.setHelperText("Descriptive helper text");
+        endHelper.setId("toggle-end-helper-" + suffix);
+        panel.add(endHelper);
+        panel.add(spacer());
+
+        ToggleButton endError = new ToggleButton("With error");
+        endError.setHelperText("Helper text");
+        endError.setErrorMessage("This field is required");
+        endError.setInvalid(true);
+        endError.setId("toggle-end-error-" + suffix);
+        panel.add(endError);
 
         // ── All non-END label positions ────────────────────────────────
         for (LabelPosition pos : new LabelPosition[]{

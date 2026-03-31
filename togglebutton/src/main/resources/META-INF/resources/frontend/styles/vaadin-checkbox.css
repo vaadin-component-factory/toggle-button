@@ -20,6 +20,15 @@ vaadin-checkbox[theme~="toggle-button"] {
     align-items: center;
     --vaadin-input-field-error-color: var(--lumo-error-text-color, var(--aura-red-text, #b71c1c));
     --vaadin-input-field-helper-color: var(--vaadin-text-color-secondary, var(--lumo-secondary-text-color, color-mix(in srgb, currentColor 60%, transparent)));
+    /* Off-state track colour. Exposed via --vaadin-checkbox-background so that
+     * Aura's document-scope ::part(checkbox) rule — which does
+     * background: var(--vaadin-checkbox-background, var(--aura-surface-color)) —
+     * uses our grey instead of the near-white surface colour.
+     *
+     * Using color-mix(currentColor 55%) rather than --lumo-contrast-40pct so
+     * the colour adapts to any background (light or dark).  55 % means the
+     * disabled track (opacity 0.5) still lands at ~27 % — visibly there. */
+    --vaadin-checkbox-background: color-mix(in srgb, currentColor 55%, transparent);
 }
 
 /* Explicitly apply the helper colour via ::part() so it works in unstyled
@@ -37,7 +46,7 @@ vaadin-checkbox[theme~="toggle-button"]::part(checkbox) {
     min-width: 40px;
     min-height: 22px;
     border-radius: 11px;
-    background-color: var(--lumo-contrast-40pct, var(--aura-contrast-40pct, #9e9e9e));
+    background-color: var(--vaadin-checkbox-background);
     border: none;
     margin: 0;
     cursor: pointer;
@@ -123,9 +132,24 @@ vaadin-checkbox[theme~="toggle-button"][theme~="label-bottom"] input[type="check
     margin: 0 !important;
 }
 
-/* START: label on left, toggle on right */
+/* START: label on left, toggle on right.
+ *
+ * The base grid is "auto 1fr" (checkbox col-1, label col-2).  We need the
+ * reversed layout "1fr auto" so the label gets all available space and the
+ * track sits compactly to its right, not stretched across the remaining width.
+ *
+ * align-items: center prevents the track jumping when an error message
+ * appears/disappears (baseline alignment would cause that shift).
+ *
+ * translate is cancelled here — center alignment makes the 2 px optical
+ * nudge unnecessary and it would cause the track to sit visually too high. */
+vaadin-checkbox[theme~="toggle-button"][theme~="label-start"] {
+    grid-template-columns: 1fr auto;
+    align-items: center;
+}
 vaadin-checkbox[theme~="toggle-button"][theme~="label-start"]::part(checkbox) {
     grid-column: 2;
+    translate: none;
 }
 vaadin-checkbox[theme~="toggle-button"][theme~="label-start"]::part(label) {
     grid-column: 1;
