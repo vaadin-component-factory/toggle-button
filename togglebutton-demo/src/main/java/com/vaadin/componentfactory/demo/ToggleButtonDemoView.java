@@ -5,7 +5,6 @@ import com.vaadin.componentfactory.ToggleButton.LabelPosition;
 import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.ComponentUtil;
 import com.vaadin.flow.component.UI;
-import com.vaadin.flow.component.formlayout.FormLayout.ResponsiveStep.LabelsPosition;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.html.H4;
@@ -66,23 +65,18 @@ public class ToggleButtonDemoView extends VerticalLayout {
     protected void onAttach(AttachEvent attachEvent) {
         super.onAttach(attachEvent);
         UI ui = attachEvent.getUI();
-        // Ensure we start in unstyled mode (no theme stylesheet loaded)
-        Registration registration = ComponentUtil.getData(ui,
-                Registration.class);
+        Registration registration = ComponentUtil.getData(ui, Registration.class);
         if (registration == null) {
             switchTheme(ui, UNSTYLED);
         }
     }
 
     private void switchTheme(UI ui, String theme) {
-        // Remove previous theme stylesheet
-        Registration registration = ComponentUtil.getData(ui,
-                Registration.class);
+        Registration registration = ComponentUtil.getData(ui, Registration.class);
         if (registration != null) {
             registration.remove();
         }
 
-        // Add the new theme stylesheet
         String styleSheet = switch (theme) {
             case LUMO -> "lumo/lumo.css";
             case AURA -> "aura/aura.css";
@@ -112,16 +106,18 @@ public class ToggleButtonDemoView extends VerticalLayout {
                 .set("background-color", bg)
                 .set("color", textColor);
 
-        // Label colors for readability on light/dark backgrounds
         panel.getStyle()
                 .set("--vaadin-checkbox-label-color", textColor)
                 .set("--vaadin-input-field-label-color", textColor);
 
         if (dark) {
-            // Override theme disabled text colors for dark backgrounds
             panel.getStyle()
                     .set("--lumo-disabled-text-color", "rgba(224, 224, 224, 0.4)")
-                    .set("--vaadin-input-field-label-color", "#e0e0e0");
+                    .set("--vaadin-input-field-label-color", "#e0e0e0")
+                    .set("--vaadin-text-color", "#e0e0e0")
+                    .set("--vaadin-text-color-secondary", "rgba(224, 224, 224, 0.7)")
+                    .set("--vaadin-input-field-error-color", "#ff8a80")
+                    .set("--vaadin-input-field-required-indicator-color", "rgba(224, 224, 224, 0.7)");
         }
 
         H4 heading = new H4(title);
@@ -131,20 +127,31 @@ public class ToggleButtonDemoView extends VerticalLayout {
                 .set("color", textColor);
         panel.add(heading);
 
-        panel.add(new ToggleButton("Off state"));
+        // ── Basic states ───────────────────────────────────────────────
+        String suffix = dark ? "dark" : "light";
+
+        ToggleButton off = new ToggleButton("Off state");
+        off.setId("toggle-end-off-" + suffix);
+        panel.add(off);
         panel.add(spacer());
-        panel.add(new ToggleButton("On state", true));
+
+        ToggleButton on = new ToggleButton("On state", true);
+        on.setId("toggle-end-on-" + suffix);
+        panel.add(on);
         panel.add(spacer());
 
         ToggleButton disabled = new ToggleButton("Disabled");
         disabled.setEnabled(false);
+        disabled.setId("toggle-end-disabled-" + suffix);
         panel.add(disabled);
         panel.add(spacer());
 
         ToggleButton disabledOn = new ToggleButton("Disabled on", true);
         disabledOn.setEnabled(false);
+        disabledOn.setId("toggle-end-disabled-on-" + suffix);
         panel.add(disabledOn);
 
+        // ── All non-END label positions ────────────────────────────────
         for (LabelPosition pos : new LabelPosition[]{
                 LabelPosition.START,
                 LabelPosition.TOP,
@@ -152,21 +159,44 @@ public class ToggleButtonDemoView extends VerticalLayout {
 
             panel.add(spacer());
 
-            H4 posHeading = new H4("Label " + pos.name().charAt(0) + pos.name().substring(1).toLowerCase());
+            String posName = pos.name().charAt(0) + pos.name().substring(1).toLowerCase();
+            String posKey = pos.name().toLowerCase();
+
+            H4 posHeading = new H4("Label " + posName);
             posHeading.getStyle()
                     .set("margin", "12px 0 12px 0")
                     .set("font-size", "14px")
                     .set("color", textColor);
             panel.add(posHeading);
 
-            ToggleButton off = new ToggleButton("Off state");
-            off.setLabelPosition(pos);
-            panel.add(off);
+            ToggleButton posOff = new ToggleButton("Off state");
+            posOff.setLabelPosition(pos);
+            posOff.setId("toggle-" + posKey + "-off-" + suffix);
+            panel.add(posOff);
             panel.add(spacer());
 
-            ToggleButton on = new ToggleButton("On state", true);
-            on.setLabelPosition(pos);
-            panel.add(on);
+            ToggleButton posOn = new ToggleButton("On state", true);
+            posOn.setLabelPosition(pos);
+            posOn.setId("toggle-" + posKey + "-on-" + suffix);
+            panel.add(posOn);
+            panel.add(spacer());
+
+            // ── With helper text ───────────────────────────────────────
+            ToggleButton withHelper = new ToggleButton("With helper");
+            withHelper.setLabelPosition(pos);
+            withHelper.setHelperText("Descriptive helper text");
+            withHelper.setId("toggle-" + posKey + "-helper-" + suffix);
+            panel.add(withHelper);
+            panel.add(spacer());
+
+            // ── With error message (invalid state) ────────────────────
+            ToggleButton withError = new ToggleButton("With error");
+            withError.setLabelPosition(pos);
+            withError.setHelperText("Helper text");
+            withError.setErrorMessage("This field is required");
+            withError.setInvalid(true);
+            withError.setId("toggle-" + posKey + "-error-" + suffix);
+            panel.add(withError);
         }
 
         return panel;

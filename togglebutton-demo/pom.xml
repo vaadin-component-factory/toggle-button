@@ -6,7 +6,7 @@
     <groupId>com.vaadin.componentfactory</groupId>
     <artifactId>togglebutton-demo</artifactId>
     <packaging>war</packaging>
-    <version>4.1.0</version>
+    <version>4.2.0</version>
 
     <name>Component Factory Toggle Button add-on Demo</name>
 
@@ -18,7 +18,7 @@
 
     <properties>
         <failOnMissingWebXml>false</failOnMissingWebXml>
-        <vaadin.version>25.0.7</vaadin.version>
+        <vaadin.version>25.1.0</vaadin.version>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

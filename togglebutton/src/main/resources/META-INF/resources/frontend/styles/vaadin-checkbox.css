@@ -6,9 +6,27 @@
  * When neither is loaded, hardcoded fallback values are used.
  */
 
-/* Vertically centre the label text with the toggle track */
+/* Vertically centre the label text with the toggle track.
+ * Also provide sensible error/helper colour defaults for all themes.
+ *
+ * Helper colour resolution order:
+ *   1. --vaadin-text-color-secondary  – set by Aura globally and by the demo's
+ *      dark panel for all themes; adapts to light/dark context.
+ *   2. --lumo-secondary-text-color    – Lumo light-mode fallback.
+ *   3. color-mix fallback             – 60 % of currentColor, so it adapts to
+ *      whatever text colour the surrounding context has inherited.
+ */
 vaadin-checkbox[theme~="toggle-button"] {
     align-items: center;
+    --vaadin-input-field-error-color: var(--lumo-error-text-color, var(--aura-red-text, #b71c1c));
+    --vaadin-input-field-helper-color: var(--vaadin-text-color-secondary, var(--lumo-secondary-text-color, color-mix(in srgb, currentColor 60%, transparent)));
+}
+
+/* Explicitly apply the helper colour via ::part() so it works in unstyled
+ * mode (where no Lumo/Aura shadow-DOM rules are active) and overrides any
+ * stale shadow-DOM internal colour when a theme IS loaded. */
+vaadin-checkbox[theme~="toggle-button"]::part(helper-text) {
+    color: var(--vaadin-input-field-helper-color);
 }
 
 /* Toggle track */
@@ -80,6 +98,31 @@ vaadin-checkbox[checked][disabled][theme~="toggle-button"]::part(checkbox) {
     opacity: 0.4;
 }
 
+/* ============================================================
+ * Non-END label positions: fix the click target.
+ *
+ * The hidden <input type="checkbox"> is a light-DOM child of
+ * vaadin-checkbox. With position:relative on the host we can
+ * make the input cover the entire component with
+ * position:absolute so that clicking the visual track (which
+ * moved to a different grid cell) still hits the input.
+ * ============================================================ */
+vaadin-checkbox[theme~="toggle-button"][theme~="label-start"],
+vaadin-checkbox[theme~="toggle-button"][theme~="label-top"],
+vaadin-checkbox[theme~="toggle-button"][theme~="label-bottom"] {
+    position: relative;
+}
+
+vaadin-checkbox[theme~="toggle-button"][theme~="label-start"] input[type="checkbox"],
+vaadin-checkbox[theme~="toggle-button"][theme~="label-top"] input[type="checkbox"],
+vaadin-checkbox[theme~="toggle-button"][theme~="label-bottom"] input[type="checkbox"] {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
+}
+
 /* START: label on left, toggle on right */
 vaadin-checkbox[theme~="toggle-button"][theme~="label-start"]::part(checkbox) {
     grid-column: 2;
@@ -87,33 +130,54 @@ vaadin-checkbox[theme~="toggle-button"][theme~="label-start"]::part(checkbox) {
 vaadin-checkbox[theme~="toggle-button"][theme~="label-start"]::part(label) {
     grid-column: 1;
 }
-
-/* TOP: label on top, toggle on bottom */
-vaadin-checkbox[theme~="toggle-button"][theme~="label-top"] {
-    display: inline-flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 4px;
+/* Move helper-text and error-message under the label (column 1), not the track */
+vaadin-checkbox[theme~="toggle-button"][theme~="label-start"]::part(helper-text),
+vaadin-checkbox[theme~="toggle-button"][theme~="label-start"]::part(error-message) {
+    grid-column: 1;
 }
-vaadin-checkbox[theme~="toggle-button"][theme~="label-top"]::part(checkbox) {
-    order: 2;
+
+/* TOP: label on top, toggle on bottom.
+ * Switch to a single-column grid and place parts via explicit grid-row
+ * so that helper-text and error-message stack correctly below. */
+vaadin-checkbox[theme~="toggle-button"][theme~="label-top"] {
+    grid-template-columns: max-content;
+    row-gap: 4px;
+    column-gap: 0;
+    align-items: start;
 }
 vaadin-checkbox[theme~="toggle-button"][theme~="label-top"]::part(label) {
-    order: 1;
+    grid-column: 1;
+    grid-row: 1;
+}
+vaadin-checkbox[theme~="toggle-button"][theme~="label-top"]::part(checkbox) {
+    grid-column: 1;
+    grid-row: 2;
+}
+vaadin-checkbox[theme~="toggle-button"][theme~="label-top"]::part(helper-text),
+vaadin-checkbox[theme~="toggle-button"][theme~="label-top"]::part(error-message) {
+    grid-column: 1;
+    grid-row: auto;
 }
 
 /* BOTTOM: toggle on top, label on bottom */
 vaadin-checkbox[theme~="toggle-button"][theme~="label-bottom"] {
-    display: inline-flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 4px;
+    grid-template-columns: max-content;
+    row-gap: 4px;
+    column-gap: 0;
+    align-items: start;
 }
 vaadin-checkbox[theme~="toggle-button"][theme~="label-bottom"]::part(checkbox) {
-    order: 1;
+    grid-column: 1;
+    grid-row: 1;
 }
 vaadin-checkbox[theme~="toggle-button"][theme~="label-bottom"]::part(label) {
-    order: 2;
+    grid-column: 1;
+    grid-row: 2;
+}
+vaadin-checkbox[theme~="toggle-button"][theme~="label-bottom"]::part(helper-text),
+vaadin-checkbox[theme~="toggle-button"][theme~="label-bottom"]::part(error-message) {
+    grid-column: 1;
+    grid-row: auto;
 }
 
 vaadin-checkbox[theme~="toggle-button"]::before {
