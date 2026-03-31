@@ -6,7 +6,7 @@
 
     <groupId>com.vaadin.componentfactory</groupId>
     <artifactId>togglebutton</artifactId>
-    <version>4.0.0</version>
+    <version>4.1.0</version>
     <name>ToggleButton for Flow</name>
     <description>Toggle Button component for Vaadin 25.0</description>
 

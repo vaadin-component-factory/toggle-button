@@ -6,6 +6,11 @@
  * When neither is loaded, hardcoded fallback values are used.
  */
 
+/* Vertically centre the label text with the toggle track */
+vaadin-checkbox[theme~="toggle-button"] {
+    align-items: center;
+}
+
 /* Toggle track */
 vaadin-checkbox[theme~="toggle-button"]::part(checkbox) {
     position: relative;
@@ -21,6 +26,8 @@ vaadin-checkbox[theme~="toggle-button"]::part(checkbox) {
     overflow: hidden;
     display: block;
     box-sizing: border-box;
+    /* Nudge up 2px to align with the optical (cap-height) centre of the label text */
+    translate: 0 -2px;
 }
 
 /* Toggle knob */
@@ -71,4 +78,40 @@ vaadin-checkbox[disabled][theme~="toggle-button"]::part(checkbox)::after {
 vaadin-checkbox[checked][disabled][theme~="toggle-button"]::part(checkbox) {
     background-color: var(--lumo-primary-color, var(--aura-primary-color, #1676f3));
     opacity: 0.4;
+}
+
+/* WEST: label on left, toggle on right */
+vaadin-checkbox[theme~="toggle-button"][theme~="label-west"]::part(checkbox) {
+    grid-column: 2;
+}
+vaadin-checkbox[theme~="toggle-button"][theme~="label-west"]::part(label) {
+    grid-column: 1;
+}
+
+/* NORTH: label on top, toggle on bottom */
+vaadin-checkbox[theme~="toggle-button"][theme~="label-north"] {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+}
+vaadin-checkbox[theme~="toggle-button"][theme~="label-north"]::part(checkbox) {
+    order: 2;
+}
+vaadin-checkbox[theme~="toggle-button"][theme~="label-north"]::part(label) {
+    order: 1;
+}
+
+/* SOUTH: toggle on top, label on bottom */
+vaadin-checkbox[theme~="toggle-button"][theme~="label-south"] {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+}
+vaadin-checkbox[theme~="toggle-button"][theme~="label-south"]::part(checkbox) {
+    order: 1;
+}
+vaadin-checkbox[theme~="toggle-button"][theme~="label-south"]::part(label) {
+    order: 2;
 }

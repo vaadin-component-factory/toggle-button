@@ -90,6 +90,46 @@ public class ToggleButton extends Checkbox implements HasTheme {
         addThemeName();
     }
 
+    /**
+     * Defines where the label is placed relative to the toggle switch.
+     */
+    public enum LabelPosition {
+        /** Label to the right of the toggle (default). */
+        EAST,
+        /** Label to the left of the toggle. */
+        WEST,
+        /** Label above the toggle. */
+        NORTH,
+        /** Label below the toggle. */
+        SOUTH
+    }
+
+    /**
+     * Sets the position of the label relative to the toggle switch.
+     *
+     * @param position the label position; {@code null} resets to {@link LabelPosition#EAST}
+     */
+    public void setLabelPosition(LabelPosition position) {
+        removeThemeName("label-west");
+        removeThemeName("label-north");
+        removeThemeName("label-south");
+        if (position != null && position != LabelPosition.EAST) {
+            addThemeName("label-" + position.name().toLowerCase());
+        }
+    }
+
+    /**
+     * Returns the current label position.
+     *
+     * @return the label position, never {@code null}
+     */
+    public LabelPosition getLabelPosition() {
+        if (getThemeNames().contains("label-west"))  return LabelPosition.WEST;
+        if (getThemeNames().contains("label-north")) return LabelPosition.NORTH;
+        if (getThemeNames().contains("label-south")) return LabelPosition.SOUTH;
+        return LabelPosition.EAST;
+    }
+
     private void addThemeName() {
         addThemeName(THEME_NAME);
     }
