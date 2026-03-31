@@ -80,38 +80,42 @@ vaadin-checkbox[checked][disabled][theme~="toggle-button"]::part(checkbox) {
     opacity: 0.4;
 }
 
-/* WEST: label on left, toggle on right */
-vaadin-checkbox[theme~="toggle-button"][theme~="label-west"]::part(checkbox) {
+/* START: label on left, toggle on right */
+vaadin-checkbox[theme~="toggle-button"][theme~="label-start"]::part(checkbox) {
     grid-column: 2;
 }
-vaadin-checkbox[theme~="toggle-button"][theme~="label-west"]::part(label) {
+vaadin-checkbox[theme~="toggle-button"][theme~="label-start"]::part(label) {
     grid-column: 1;
 }
 
-/* NORTH: label on top, toggle on bottom */
-vaadin-checkbox[theme~="toggle-button"][theme~="label-north"] {
+/* TOP: label on top, toggle on bottom */
+vaadin-checkbox[theme~="toggle-button"][theme~="label-top"] {
     display: inline-flex;
     flex-direction: column;
     align-items: flex-start;
     gap: 4px;
 }
-vaadin-checkbox[theme~="toggle-button"][theme~="label-north"]::part(checkbox) {
+vaadin-checkbox[theme~="toggle-button"][theme~="label-top"]::part(checkbox) {
     order: 2;
 }
-vaadin-checkbox[theme~="toggle-button"][theme~="label-north"]::part(label) {
+vaadin-checkbox[theme~="toggle-button"][theme~="label-top"]::part(label) {
     order: 1;
 }
 
-/* SOUTH: toggle on top, label on bottom */
-vaadin-checkbox[theme~="toggle-button"][theme~="label-south"] {
+/* BOTTOM: toggle on top, label on bottom */
+vaadin-checkbox[theme~="toggle-button"][theme~="label-bottom"] {
     display: inline-flex;
     flex-direction: column;
     align-items: flex-start;
     gap: 4px;
 }
-vaadin-checkbox[theme~="toggle-button"][theme~="label-south"]::part(checkbox) {
+vaadin-checkbox[theme~="toggle-button"][theme~="label-bottom"]::part(checkbox) {
     order: 1;
 }
-vaadin-checkbox[theme~="toggle-button"][theme~="label-south"]::part(label) {
+vaadin-checkbox[theme~="toggle-button"][theme~="label-bottom"]::part(label) {
     order: 2;
+}
+
+vaadin-checkbox[theme~="toggle-button"]::before {
+    display: none;
 }

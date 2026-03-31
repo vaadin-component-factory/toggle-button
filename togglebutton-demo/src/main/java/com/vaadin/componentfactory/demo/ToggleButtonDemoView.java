@@ -1,9 +1,11 @@
 package com.vaadin.componentfactory.demo;
 
 import com.vaadin.componentfactory.ToggleButton;
+import com.vaadin.componentfactory.ToggleButton.LabelPosition;
 import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.ComponentUtil;
 import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.formlayout.FormLayout.ResponsiveStep.LabelsPosition;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.html.H4;
@@ -143,10 +145,10 @@ public class ToggleButtonDemoView extends VerticalLayout {
         disabledOn.setEnabled(false);
         panel.add(disabledOn);
 
-        for (ToggleButton.LabelPosition pos : new ToggleButton.LabelPosition[]{
-                ToggleButton.LabelPosition.WEST,
-                ToggleButton.LabelPosition.NORTH,
-                ToggleButton.LabelPosition.SOUTH}) {
+        for (LabelPosition pos : new LabelPosition[]{
+                LabelPosition.START,
+                LabelPosition.TOP,
+                LabelPosition.BOTTOM}) {
 
             panel.add(spacer());
 

@@ -20,7 +20,6 @@ package com.vaadin.componentfactory;
  * #L%
  */
 
-import com.vaadin.flow.component.HasTheme;
 import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.dependency.CssImport;
 
@@ -34,7 +33,21 @@ import com.vaadin.flow.component.dependency.CssImport;
  */
 @CssImport("./styles/vaadin-checkbox.css")
 @SuppressWarnings("serial")
-public class ToggleButton extends Checkbox implements HasTheme {
+public class ToggleButton extends Checkbox {
+
+    /**
+     * Defines where the label is placed relative to the toggle switch.
+     */
+    public enum LabelPosition {
+        /** Label to the right of the toggle (default). */
+        END,
+        /** Label to the left of the toggle. */
+        START,
+        /** Label above the toggle. */
+        TOP,
+        /** Label below the toggle. */
+        BOTTOM
+    }
 
     public static final String THEME_NAME = "toggle-button";
 
@@ -91,29 +104,15 @@ public class ToggleButton extends Checkbox implements HasTheme {
     }
 
     /**
-     * Defines where the label is placed relative to the toggle switch.
-     */
-    public enum LabelPosition {
-        /** Label to the right of the toggle (default). */
-        EAST,
-        /** Label to the left of the toggle. */
-        WEST,
-        /** Label above the toggle. */
-        NORTH,
-        /** Label below the toggle. */
-        SOUTH
-    }
-
-    /**
      * Sets the position of the label relative to the toggle switch.
      *
-     * @param position the label position; {@code null} resets to {@link LabelPosition#EAST}
+     * @param position the label position; {@code null} resets to {@link LabelPosition#END}
      */
     public void setLabelPosition(LabelPosition position) {
-        removeThemeName("label-west");
-        removeThemeName("label-north");
-        removeThemeName("label-south");
-        if (position != null && position != LabelPosition.EAST) {
+        removeThemeName("label-start");
+        removeThemeName("label-top");
+        removeThemeName("label-bottom");
+        if (position != null && position != LabelPosition.END) {
             addThemeName("label-" + position.name().toLowerCase());
         }
     }
@@ -124,10 +123,10 @@ public class ToggleButton extends Checkbox implements HasTheme {
      * @return the label position, never {@code null}
      */
     public LabelPosition getLabelPosition() {
-        if (getThemeNames().contains("label-west"))  return LabelPosition.WEST;
-        if (getThemeNames().contains("label-north")) return LabelPosition.NORTH;
-        if (getThemeNames().contains("label-south")) return LabelPosition.SOUTH;
-        return LabelPosition.EAST;
+        if (getThemeNames().contains("label-start"))  return LabelPosition.START;
+        if (getThemeNames().contains("label-top")) return LabelPosition.TOP;
+        if (getThemeNames().contains("label-bottom")) return LabelPosition.BOTTOM;
+        return LabelPosition.END;
     }
 
     private void addThemeName() {
