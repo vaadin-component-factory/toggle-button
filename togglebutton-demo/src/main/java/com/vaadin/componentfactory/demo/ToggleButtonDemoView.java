@@ -5,6 +5,8 @@ import com.vaadin.componentfactory.ToggleButton.LabelPosition;
 import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.ComponentUtil;
 import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.checkbox.CheckboxGroup;
+import com.vaadin.flow.component.checkbox.CheckboxGroupVariant;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.html.H4;
@@ -219,6 +221,24 @@ public class ToggleButtonDemoView extends VerticalLayout {
             withError.setId("toggle-" + posKey + "-error-" + suffix);
             panel.add(withError);
         }
+
+        panel.add(spacer());
+
+        H4 groupHeading = new H4("CheckboxGroup");
+        groupHeading.getStyle()
+                .set("margin", "12px 0 12px 0")
+                .set("font-size", "14px")
+                .set("color", textColor);
+        panel.add(groupHeading);
+
+        CheckboxGroup<String> checkboxGroup = new CheckboxGroup<>();
+        checkboxGroup.setLabel("Export data");
+        checkboxGroup.setItems("Order ID", "Product name", "Customer", "Status");
+        checkboxGroup.select("Order ID", "Customer");
+        checkboxGroup.addThemeVariants(CheckboxGroupVariant.LUMO_VERTICAL);
+        checkboxGroup.addThemeName(ToggleButton.THEME_NAME);
+        checkboxGroup.setId("toggle-checkbox-group-" + suffix);
+        panel.add(checkboxGroup);
 
         return panel;
     }
