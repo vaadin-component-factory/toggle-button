@@ -16,7 +16,8 @@
  *   3. color-mix fallback             – 60 % of currentColor, so it adapts to
  *      whatever text colour the surrounding context has inherited.
  */
-vaadin-checkbox[theme~="toggle-button"] {
+vaadin-checkbox[theme~="toggle-button"],
+vaadin-checkbox-group[theme~="toggle-button"] > vaadin-checkbox {
     align-items: center;
     --vaadin-input-field-error-color: var(--lumo-error-text-color, var(--aura-red-text, #b71c1c));
     --vaadin-input-field-helper-color: var(--vaadin-text-color-secondary, var(--lumo-secondary-text-color, color-mix(in srgb, currentColor 60%, transparent)));
@@ -34,12 +35,14 @@ vaadin-checkbox[theme~="toggle-button"] {
 /* Explicitly apply the helper colour via ::part() so it works in unstyled
  * mode (where no Lumo/Aura shadow-DOM rules are active) and overrides any
  * stale shadow-DOM internal colour when a theme IS loaded. */
-vaadin-checkbox[theme~="toggle-button"]::part(helper-text) {
+vaadin-checkbox[theme~="toggle-button"]::part(helper-text),
+vaadin-checkbox-group[theme~="toggle-button"] > vaadin-checkbox::part(helper-text) {
     color: var(--vaadin-input-field-helper-color);
 }
 
 /* Toggle track */
-vaadin-checkbox[theme~="toggle-button"]::part(checkbox) {
+vaadin-checkbox[theme~="toggle-button"]::part(checkbox),
+vaadin-checkbox-group[theme~="toggle-button"] > vaadin-checkbox::part(checkbox) {
     position: relative;
     width: 40px;
     height: 22px;
@@ -58,7 +61,8 @@ vaadin-checkbox[theme~="toggle-button"]::part(checkbox) {
 }
 
 /* Toggle knob */
-vaadin-checkbox[theme~="toggle-button"]::part(checkbox)::after {
+vaadin-checkbox[theme~="toggle-button"]::part(checkbox)::after,
+vaadin-checkbox-group[theme~="toggle-button"] > vaadin-checkbox::part(checkbox)::after {
     position: absolute !important;
     content: "" !important;
     inset: auto !important;
@@ -81,28 +85,33 @@ vaadin-checkbox[theme~="toggle-button"]::part(checkbox)::after {
 }
 
 /* Checked knob position */
-vaadin-checkbox[checked][theme~="toggle-button"]::part(checkbox)::after {
+vaadin-checkbox[checked][theme~="toggle-button"]::part(checkbox)::after,
+vaadin-checkbox-group[theme~="toggle-button"] > vaadin-checkbox[checked]::part(checkbox)::after {
     left: 21px !important;
 }
 
 /* Checked track color */
-vaadin-checkbox[checked][theme~="toggle-button"]::part(checkbox) {
+vaadin-checkbox[checked][theme~="toggle-button"]::part(checkbox),
+vaadin-checkbox-group[theme~="toggle-button"] > vaadin-checkbox[checked]::part(checkbox) {
     background-color: var(--lumo-primary-color, var(--aura-primary-color, #1676f3));
 }
 
 /* Disabled track */
-vaadin-checkbox[disabled][theme~="toggle-button"]::part(checkbox) {
+vaadin-checkbox[disabled][theme~="toggle-button"]::part(checkbox),
+vaadin-checkbox-group[theme~="toggle-button"] > vaadin-checkbox[disabled]::part(checkbox) {
     opacity: 0.5;
     cursor: default;
 }
 
 /* Disabled knob */
-vaadin-checkbox[disabled][theme~="toggle-button"]::part(checkbox)::after {
+vaadin-checkbox[disabled][theme~="toggle-button"]::part(checkbox)::after,
+vaadin-checkbox-group[theme~="toggle-button"] > vaadin-checkbox[disabled]::part(checkbox)::after {
     color: transparent !important;
 }
 
 /* Checked + disabled track */
-vaadin-checkbox[checked][disabled][theme~="toggle-button"]::part(checkbox) {
+vaadin-checkbox[checked][disabled][theme~="toggle-button"]::part(checkbox),
+vaadin-checkbox-group[theme~="toggle-button"] > vaadin-checkbox[checked][disabled]::part(checkbox) {
     background-color: var(--lumo-primary-color, var(--aura-primary-color, #1676f3));
     opacity: 0.4;
 }
@@ -208,6 +217,7 @@ vaadin-checkbox[theme~="toggle-button"][theme~="label-bottom"]::part(error-messa
     grid-row: auto;
 }
 
-vaadin-checkbox[theme~="toggle-button"]::before {
+vaadin-checkbox[theme~="toggle-button"]::before,
+vaadin-checkbox-group[theme~="toggle-button"] > vaadin-checkbox::before {
     display: none;
 }
