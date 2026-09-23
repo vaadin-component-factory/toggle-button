@@ -11,6 +11,10 @@ Version 4.0.0 is compatible with **Vaadin 25.0.7** (Java 21, Spring Boot 4).
 | 3.0.0   | 23/24  |
 | 4.0.0   | 25.0   |
 
+## Note Vaadin 25.3
+
+Since Vaadin 25.3, a Switch component is included in Vaadin. It covers the same use case with native `switch` ARIA semantics, helper text, validation and read-only support, so we recommend using the official [Switch](https://vaadin.com/docs/latest/components/switch) component for new projects. This add-on remains available for features not present in the core component, such as placing the label above or below the toggle (`LabelPosition.TOP` / `BOTTOM`). Note that `Switch` does not extend `Checkbox`, so some code changes may be needed when migrating.
+
 ## Usage
 
 ```java
